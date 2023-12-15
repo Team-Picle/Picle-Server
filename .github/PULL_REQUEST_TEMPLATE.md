@@ -1,5 +1,5 @@
-## 📍Issue Number or Link
-- closed #이슈넘버
+## 💭Issue Number
+- close #이슈넘버
 </br>
 
 ## 🫧Description
