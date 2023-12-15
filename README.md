@@ -25,6 +25,7 @@
 |                   |                          |_ 📁 domain
 |                   |                          |_ 📁 exception
 |                   |                          |_ 📁 external
+|                   |                          |_ 📁 global
 |                   |                          |_ 📁 infrastructure
 |                   |                          |_ 📁 service
 |                   |                          |_ PicleApplication.java
