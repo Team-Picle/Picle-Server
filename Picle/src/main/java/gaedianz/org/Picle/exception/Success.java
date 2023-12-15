@@ -1,4 +1,35 @@
 package gaedianz.org.Picle.exception;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
+
+@Getter
+@AllArgsConstructor(access =  AccessLevel.PRIVATE)
 public enum Success {
+
+    /**
+     * 201 CREATED
+     */
+    SIGNUP_SUCCESS(HttpStatus.CREATED, "회원가입이 완료됐습니다."),
+    LOGIN_SUCCESS(HttpStatus.CREATED, "로그인이 완료됐습니다."),
+    CREATE_ROUTINE_SUCCESS(HttpStatus.CREATED, "루틴 생성이 완료됐습니다."),
+    CREATE_TODO_SUCCESS(HttpStatus.CREATED, "투두 생성이 완료됐습니다."),
+
+    /**
+     * 200 OK
+     */
+    UPDATE_ROUTINE_SUCCESS(HttpStatus.OK, "루틴 수정이 완료됐습니다."),
+    UPDATE_TODO_SUCCESS(HttpStatus.OK, "투두 수정이 완료됐습니다."),
+    DELETE_ROUTINE_SUCCESS(HttpStatus.OK, "루틴 삭제가 완료됐습니다."),
+    DELETE_TODO_SUCCESS(HttpStatus.OK, "투두 삭제가 완료됐습니다."),
+    ;
+
+    private final HttpStatus httpStatus;
+    private final String message;
+
+    public int getHttpStatusCode() {
+        return httpStatus.value();
+    }
 }
