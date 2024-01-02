@@ -20,8 +20,7 @@ public class UserService {
                 request.getNickname(),
                 request.getProfileImage(),
                 request.getSocialPlatform(),
-                request.getAccessToken(),
-                request.getRefreshToken()
+                request.getAccessToken()
         );
 
         userRepository.save(newUser);

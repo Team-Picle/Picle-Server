@@ -38,18 +38,3 @@ out/
 
 ### application.yml ###
 application.yaml
-
-# Google folder
-src/main/java/gaedianz/org/Picle/external/client/google/
-
-# Kakao folder
-src/main/java/gaedianz/org/Picle/external/client/kakao/
-
-# Social Login files
-src/main/java/gaedianz/org/Picle/controller/dto/request/SocialLoginRequestDto.java
-src/main/java/gaedianz/org/Picle/controller/SocialController.java
-src/main/java/gaedianz/org/Picle/service/SocialLoginRequest.java
-src/main/java/gaedianz/org/Picle/service/external/GoogleSocialService.java
-src/main/java/gaedianz/org/Picle/service/external/KakaoSocialService.java
-src/main/java/gaedianz/org/Picle/service/SocialService.java
-src/main/java/gaedianz/org/Picle/service/SocialServiceProvider.java

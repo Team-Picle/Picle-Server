@@ -28,18 +28,14 @@ public class User {
     @Column(nullable = false)
     private String accessToken;
 
-    @Column(nullable = false)
-    private String refreshToken;
-
-    private User(String nickname, String profileImage, SocialPlatform socialPlatform, String accessToken, String refreshToken) {
+    private User(String nickname, String profileImage, SocialPlatform socialPlatform, String accessToken) {
         this.nickname = nickname;
         this.profileImage = profileImage;
         this.socialPlatform = socialPlatform;
         this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
     }
 
-    public static User of(String nickname, String profileImage, SocialPlatform socialPlatform, String accessToken, String refreshToken) {
-        return new User(nickname, profileImage, socialPlatform, accessToken, refreshToken);
+    public static User of(String nickname, String profileImage, SocialPlatform socialPlatform, String accessToken) {
+        return new User(nickname, profileImage, socialPlatform, accessToken);
     }
 }

@@ -26,9 +26,5 @@ public class UserRequestDto {
     @NotNull
     @Schema(description = "Access Token")
     private String accessToken;
-
-    @NotNull
-    @Schema(description = "Refresh Token")
-    private String refreshToken;
 }
 
