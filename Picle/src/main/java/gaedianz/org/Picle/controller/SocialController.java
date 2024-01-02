@@ -16,12 +16,14 @@ public class SocialController {
 
     private final SocialServiceProvider socialServiceProvider;
 
+//    KakaoLogin
 //    @PostMapping("/login")
 //    public ApiResponse<Long> login(@RequestHeader("code") String code, @RequestBody SocialLoginRequestDto request) {
 //        SocialService socialService = socialServiceProvider.getSocialService(request.getSocialPlatform());
 //        return ApiResponse.success(Success.LOGIN_SUCCESS, socialService.login(SocialLoginRequest.of(code)));
 //    }
 
+//    GoogleLogin
     @PostMapping("/login")
     public ApiResponse<Long> login(@RequestParam("code") String code, @RequestBody SocialLoginRequestDto request) {
         SocialService socialService = socialServiceProvider.getSocialService(request.getSocialPlatform());
