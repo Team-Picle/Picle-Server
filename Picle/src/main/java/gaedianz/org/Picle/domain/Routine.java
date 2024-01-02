@@ -6,7 +6,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -24,21 +26,26 @@ public class Routine extends AuditingTimeEntity {
     @Column(nullable = false)
     private String title;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    @Column(name = "date", nullable = false)
+    private LocalDate date;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "Asia/Seoul")
     @Column(nullable = false)
-    private LocalDateTime dateTime;
+    private LocalTime time;
 
     @Column(nullable = false)
     private boolean isCompleted;
 
-    private Routine(User user, String title, LocalDateTime dateTime, Boolean isCompleted) {
+    private Routine(User user, String title, LocalDate date, LocalTime time, Boolean isCompleted) {
         this.user = user;
         this.title = title;
-        this.dateTime = dateTime;
+        this.date = date;
+        this.time = time;
         this.isCompleted = isCompleted;
     }
 
-    public static Routine newInstance(User user, String title, LocalDateTime dateTime, Boolean isCompleted) {
-        return new Routine(user, title, dateTime, isCompleted);
+    public static Routine newInstance(User user, String title, LocalDate date, LocalTime time, Boolean isCompleted) {
+        return new Routine(user, title, date, time, isCompleted);
     }
 }
