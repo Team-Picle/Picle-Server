@@ -9,16 +9,16 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class TodoResponseDto {
     private Long todoId;
     private Long userId;
     private String content;
     private LocalDate date;
-    private boolean isCompleted;
+    private Boolean isCompleted;
 
-    public static TodoResponseDto of(Long todoId, Long userId, String content, LocalDate date, boolean isCompleted) {
+    public static TodoResponseDto of(Long todoId, Long userId, String content, LocalDate date, Boolean isCompleted) {
         return new TodoResponseDto(todoId, userId, content, date, isCompleted);
     }
 }

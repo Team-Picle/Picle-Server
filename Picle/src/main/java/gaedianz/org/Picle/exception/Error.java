@@ -19,6 +19,8 @@ public enum Error {
      * 404 NOT FOUND
      */
     NOT_FOUND_USER_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다"),
+    NOT_FOUND_TODO_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 투두입니다"),
+    NOT_FOUND_ROUTINE_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 루틴입니다"),
     NOT_FOUND_SAVE_IMAGE_EXCEPTION(HttpStatus.NOT_FOUND, "저장되지 않은 이미지입니다"),
     NOT_FOUND_IMAGE_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 이미지입니다"),
 
