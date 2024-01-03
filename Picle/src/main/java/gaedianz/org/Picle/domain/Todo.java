@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -23,7 +22,7 @@ public class Todo extends AuditingTimeEntity {
     private User user;
 
     @Column(nullable = false)
-    private String title;
+    private String content;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @Column(name = "date", nullable = false)
@@ -32,14 +31,14 @@ public class Todo extends AuditingTimeEntity {
     @Column(nullable = false)
     private boolean isCompleted;
 
-    private Todo(User user, String title, LocalDate date, Boolean isCompleted) {
+    private Todo(User user, String content, LocalDate date, Boolean isCompleted) {
         this.user = user;
-        this.title = title;
+        this.content = content;
         this.date = date;
         this.isCompleted = isCompleted;
     }
 
-    public static Todo newInstance(User user, String title, LocalDate date, Boolean isCompleted) {
-        return new Todo(user, title, date, isCompleted);
+    public static Todo newInstance(User user, String content, LocalDate date, Boolean isCompleted) {
+        return new Todo(user, content, date, isCompleted);
     }
 }
