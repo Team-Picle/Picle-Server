@@ -2,6 +2,7 @@ package gaedianz.org.Picle.controller;
 
 import gaedianz.org.Picle.common.dto.ApiResponse;
 import gaedianz.org.Picle.controller.dto.request.TodoRequestDto;
+import gaedianz.org.Picle.controller.dto.request.UpdateTodoRequestDto;
 import gaedianz.org.Picle.controller.dto.response.TodoResponseDto;
 import gaedianz.org.Picle.domain.Todo;
 import gaedianz.org.Picle.exception.Success;
@@ -15,6 +16,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+
+import static gaedianz.org.Picle.common.dto.ApiResponse.error;
+import static gaedianz.org.Picle.common.dto.ApiResponse.success;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,7 +35,7 @@ public class TodoController {
 
         List<Todo> todos = todoService.getTodosByDateAndUserId(userId, date);
 
-        return ApiResponse.success(Success.GET_TODOLIST_BY_DATE_SUCCESS, todos);
+        return success(Success.GET_TODOLIST_BY_DATE_SUCCESS, todos);
     }
 
     @PostMapping("/todo/create/{userId}")
@@ -39,6 +44,31 @@ public class TodoController {
             @RequestBody @Valid final TodoRequestDto request){
         TodoResponseDto todoResponse = todoService.createTodo(userId, request);
 
-        return ApiResponse.success(Success.CREATE_TODO_SUCCESS, todoResponse);
+        return success(Success.CREATE_TODO_SUCCESS, todoResponse);
     }
+
+    @PatchMapping("todo/update")
+    public ApiResponse<TodoResponseDto> updateTodo(
+            @RequestParam Long userId,
+            @RequestParam Long todoId,
+            @RequestBody final UpdateTodoRequestDto request){
+        TodoResponseDto todoResponse = todoService.updateTodo(userId, todoId, request);
+
+        return success(Success.UPDATE_TODO_SUCCESS, todoResponse);
+    }
+
+    @DeleteMapping("todo/delete")
+    public ApiResponse deleteTodo(
+            @RequestParam Long userId,
+            @RequestParam Long todoId){
+        Optional<Long> deletedTodoId = todoService.deleteTodo(userId, todoId);
+
+        if (deletedTodoId.isPresent()){
+            String deletedTodo = "삭제된 todoId : " + deletedTodoId.get();
+            return success(Success.DELETE_TODO_SUCCESS, deletedTodo);
+        }
+
+        return error(Error.NOT_FOUND_TODO_EXCEPTION, Error.NOT_FOUND_TODO_EXCEPTION.getMessage());
+    }
+
 }
