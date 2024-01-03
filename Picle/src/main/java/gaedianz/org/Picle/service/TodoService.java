@@ -1,6 +1,5 @@
 package gaedianz.org.Picle.service;
 
-import gaedianz.org.Picle.common.dto.ApiResponse;
 import gaedianz.org.Picle.controller.dto.request.TodoRequestDto;
 import gaedianz.org.Picle.controller.dto.request.UpdateTodoRequestDto;
 import gaedianz.org.Picle.controller.dto.response.TodoResponseDto;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service

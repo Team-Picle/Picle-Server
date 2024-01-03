@@ -1,6 +1,5 @@
 package gaedianz.org.Picle.controller.dto.response;
 
-import gaedianz.org.Picle.domain.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
