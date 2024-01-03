@@ -2,7 +2,6 @@ package gaedianz.org.Picle.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +15,9 @@ public class User {
     private Long id;
 
     @Column(nullable = false)
+    private String clientKey;
+
+    @Column(nullable = false)
     private String nickname;
 
     @Column(nullable = false)
@@ -25,17 +27,14 @@ public class User {
     @Enumerated(EnumType.STRING)
     private SocialPlatform socialPlatform;
 
-    @Column(nullable = false)
-    private String accessToken;
-
-    private User(String nickname, String profileImage, SocialPlatform socialPlatform, String accessToken) {
+    private User(String clientKey, String nickname, String profileImage, SocialPlatform socialPlatform) {
+        this.clientKey = clientKey;
         this.nickname = nickname;
         this.profileImage = profileImage;
         this.socialPlatform = socialPlatform;
-        this.accessToken = accessToken;
     }
 
-    public static User of(String nickname, String profileImage, SocialPlatform socialPlatform, String accessToken) {
-        return new User(nickname, profileImage, socialPlatform, accessToken);
+    public static User of(String clientKey, String nickname, String profileImage, SocialPlatform socialPlatform) {
+        return new User(clientKey, nickname, profileImage, socialPlatform);
     }
 }
