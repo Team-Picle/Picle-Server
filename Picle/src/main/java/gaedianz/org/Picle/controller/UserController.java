@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/user")
+@RequestMapping("/api/v1")
 public class UserController {
     private final UserService userService;
 
     @Operation(summary = "OAuth2 소셜 로그인")
-    @PostMapping("/registration")
+    @PostMapping("/user/registration")
     public ApiResponse<UserResponseDto> registerUserWithOAuth(@RequestBody @Valid final UserRequestDto request) {
         return ApiResponse.success(Success.SIGNUP_SUCCESS, userService.registerUserWithOAuth(request));
     }
