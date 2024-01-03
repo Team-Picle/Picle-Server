@@ -58,7 +58,7 @@
 ## 🧵 Git Convention
 
 ### 🔹 Commit Message Convention
-`ex) git commit -m "[FEAT] 카카오 로그인 구현 #1`
+`ex) git commit -m "[FEAT] 카카오 로그인 구현`
 
 ```plain
 - ✨ [FEAT]      새로운 기능 구현
