@@ -32,6 +32,12 @@ public class TodoService {
         return todoRepository.findByUserIdAndDate(userId, date);
     }
 
+    public List<Todo> getCompletedTodos(Long userId, LocalDate date) {
+        userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(Error.NOT_FOUND_USER_EXCEPTION, Error.NOT_FOUND_USER_EXCEPTION.getMessage()));
+        return todoRepository.findCompletedTodos(userId, date);
+    }
+
     @Transactional
     public TodoResponseDto createTodo(Long userId, TodoRequestDto request) {
         User user = userRepository.findById(userId)

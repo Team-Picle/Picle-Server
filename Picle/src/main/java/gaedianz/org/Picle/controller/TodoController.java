@@ -38,6 +38,16 @@ public class TodoController {
         return success(Success.GET_TODOLIST_BY_DATE_SUCCESS, todos);
     }
 
+    @GetMapping("/todo/getCompletedByDate/{userId}")
+    public ApiResponse<List<Todo>> getCompletedTodosByDateAndUserId(
+            @PathVariable("userId") Long userId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+
+        List<Todo> completedTodos = todoService.getCompletedTodos(userId, date);
+
+        return ApiResponse.success(Success.GET_COMPLETED_TODOLIST_BY_DATE_SUCCESS, completedTodos);
+    }
+
     @PostMapping("/todo/create/{userId}")
     public ApiResponse<TodoResponseDto> createTodo(
             @PathVariable("userId") Long userId,
