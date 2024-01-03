@@ -20,6 +20,8 @@ public interface TodoRepository extends Repository<Todo, Long> {
     @Query("SELECT t FROM Todo t WHERE t.user.id = :userId AND t.id = :todoId")
     Optional<Todo> findByUserIdAndTodoId(Long userId, Long todoId);
     List<Todo> findByUserIdAndDate(Long userId, LocalDate date);
+    @Query("SELECT t FROM Todo t WHERE t.user.id = :userId AND t.date = :date AND t.isCompleted = true")
+    List<Todo> findCompletedTodos(Long userId, LocalDate date);
 
     // UPDATE
 
