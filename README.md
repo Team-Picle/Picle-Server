@@ -43,7 +43,7 @@
 
 ## 😉 API 최종명세서
 
-[최종명세서](https://www.notion.so/API-Docs-0d0c3eb6687245a5bff093bd412671ab?pvs=4)
+[최종명세서](https://hollow-humidity-50e.notion.site/API-Docs-0d0c3eb6687245a5bff093bd412671ab?pvs=4)
 
 </br>
 
