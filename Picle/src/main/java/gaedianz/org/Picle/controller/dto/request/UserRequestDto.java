@@ -12,6 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserRequestDto {
     @NotBlank
+    @Schema(description = "유저 고유 키")
+    private String clientKey;
+
+    @NotBlank
     @Schema(description = "유저 닉네임")
     private String nickname;
 
@@ -22,9 +26,5 @@ public class UserRequestDto {
     @NotNull
     @Schema(description = "유저 소셜 플랫폼")
     private SocialPlatform socialPlatform;
-
-    @NotNull
-    @Schema(description = "Access Token")
-    private String accessToken;
 }
 

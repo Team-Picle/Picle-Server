@@ -9,11 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserResponseDto {
+    private String clientKey;
     private Long id;
     private String nickname;
     private String profileImage;
 
-    public static UserResponseDto of(Long userId, String nickname, String profileImage) {
-        return new UserResponseDto(userId, nickname, profileImage);
+    public static UserResponseDto of(String clientKey, Long userId, String nickname, String profileImage) {
+        return new UserResponseDto(clientKey, userId, nickname, profileImage);
     }
 }
