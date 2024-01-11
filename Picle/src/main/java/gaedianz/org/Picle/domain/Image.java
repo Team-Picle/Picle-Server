@@ -27,6 +27,12 @@ public class Image extends AuditingTimeEntity {
     }
 
     public static Image newInstance(Routine routine, String imageUrl) {
-        return new Image(routine, imageUrl);
+        Image image = new Image(routine, imageUrl);
+        routine.addImage(image);
+        return image;
+    }
+
+    public void setRoutine(Routine routine) {
+        this.routine = routine;
     }
 }
