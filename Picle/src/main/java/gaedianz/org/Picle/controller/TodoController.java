@@ -57,20 +57,20 @@ public class TodoController {
         return success(Success.CREATE_TODO_SUCCESS, todoResponse);
     }
 
-    @PatchMapping("todo/update")
+    @PatchMapping("todo/update/{userId}/{todoId}")
     public ApiResponse<TodoResponseDto> updateTodo(
-            @RequestParam Long userId,
-            @RequestParam Long todoId,
+            @PathVariable Long userId,
+            @PathVariable Long todoId,
             @RequestBody final UpdateTodoRequestDto request){
         TodoResponseDto todoResponse = todoService.updateTodo(userId, todoId, request);
 
         return success(Success.UPDATE_TODO_SUCCESS, todoResponse);
     }
 
-    @DeleteMapping("todo/delete")
+    @DeleteMapping("todo/delete/{userId}/{todoId}")
     public ApiResponse deleteTodo(
-            @RequestParam Long userId,
-            @RequestParam Long todoId){
+            @PathVariable Long userId,
+            @PathVariable Long todoId){
         Optional<Long> deletedTodoId = todoService.deleteTodo(userId, todoId);
 
         if (deletedTodoId.isPresent()){

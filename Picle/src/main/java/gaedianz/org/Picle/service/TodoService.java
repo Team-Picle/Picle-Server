@@ -75,10 +75,8 @@ public class TodoService {
         Todo todo = todoRepository.findByUserIdAndTodoId(userId, todoId)
                 .orElseThrow(() -> new NotFoundException(Error.NOT_FOUND_TODO_EXCEPTION, Error.NOT_FOUND_TODO_EXCEPTION.getMessage()));
 
-        Long deletedTodoId = todo.getId();
+        todoRepository.delete(todo);
 
-        todoRepository.deleteById(todo.getId());
-
-        return Optional.of(deletedTodoId);
+        return Optional.of(todoId);
     }
 }
