@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class Routine extends AuditingTimeEntity {
     @Column(name = "routine_id")
     private Long id;
 
+    private Long routineIdentifier;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private User user;
@@ -37,11 +40,10 @@ public class Routine extends AuditingTimeEntity {
     private List<Image> verifiedImgUrl = new ArrayList<>();
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    @Column(name = "date", nullable = false)
+    @Column(nullable = false)
     private LocalDate date;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "Asia/Seoul")
-    @Column(nullable = false)
     private LocalTime time;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
@@ -52,7 +54,7 @@ public class Routine extends AuditingTimeEntity {
     @CollectionTable(name = "routine_repeat_days", joinColumns = @JoinColumn(name = "routine_id"))
     @Column(name = "repeat_day", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Set<RepeatDay> repeatDays;
+    private Set<DayOfWeek> repeatDays;
 
     @Column(nullable = false)
     private Double destinationLongitude;
@@ -68,8 +70,8 @@ public class Routine extends AuditingTimeEntity {
     private Boolean isCompleted;
 
     private Routine(User user, String content, String registrationImgUrl, LocalDate date, LocalTime time,
-                    LocalDate startRepeatDate, Set<RepeatDay> repeatDays, Double destinationLongitude,
-                    Double destinationLatitude, Boolean isCompleted) {
+                    LocalDate startRepeatDate, Set<DayOfWeek> repeatDays,
+                    Double destinationLongitude, Double destinationLatitude, Boolean isCompleted) {
         this.user = user;
         this.content = content;
         this.registrationImgUrl = registrationImgUrl;
@@ -83,25 +85,13 @@ public class Routine extends AuditingTimeEntity {
     }
 
     public static Routine newInstance(User user, String content, String registrationImgUrl, LocalDate date, LocalTime time,
-                                      LocalDate startRepeatDate, Set<RepeatDay> repeatDays, Double destinationLongitude,
-                                      Double destinationLatitude, Boolean isCompleted) {
+                                      LocalDate startRepeatDate, Set<DayOfWeek> repeatDays,
+                                      Double destinationLongitude, Double destinationLatitude, Boolean isCompleted) {
         return new Routine(user, content, registrationImgUrl, date, time, startRepeatDate, repeatDays, destinationLongitude, destinationLatitude, isCompleted);
     }
 
     public void addImage(Image image) {
         verifiedImgUrl.add(image);
         image.setRoutine(this);
-    }
-
-    public void removeImage(Image image) {
-        verifiedImgUrl.remove(image);
-        image.setRoutine(null);
-    }
-
-    public void removeAllImages() {
-        for (Image image : verifiedImgUrl) {
-            image.setRoutine(null);
-        }
-        verifiedImgUrl.clear();
     }
 }

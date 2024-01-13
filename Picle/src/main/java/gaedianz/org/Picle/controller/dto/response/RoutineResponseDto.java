@@ -1,41 +1,39 @@
 package gaedianz.org.Picle.controller.dto.response;
 
-import gaedianz.org.Picle.domain.RepeatDay;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class RoutineResponseDto {
     private Long routineId;
+    private Long routineIdentifier;
     private Long userId;
     private String content;
     private String registrationImgUrl;
     private LocalDate date;
     private LocalTime time;
     private LocalDate startRepeatDate;
-    private Set<RepeatDay> repeatDays;
+    private Set<DayOfWeek> repeatDays;
     private Double destinationLongitude;
     private Double destinationLatitude;
     private Boolean isCompleted;
 
-    public static RoutineResponseDto of(Long routineId, Long userId, String content,
+    public static RoutineResponseDto of(Long routineId, Long routineIdentifier, Long userId, String content,
                                         String registrationImgUrl, LocalDate date, LocalTime time,
-                                        LocalDate startRepeatDate, Set<RepeatDay> repeatDays,
+                                        LocalDate startRepeatDate, Set<DayOfWeek> repeatDays,
                                         Double destinationLongitude, Double destinationLatitude, Boolean isCompleted){
-        // repeatDays를 원하는 순서로 정렬
-        TreeSet<RepeatDay> sortedRepeatDays = new TreeSet<>(repeatDays);
-
-        return new RoutineResponseDto(routineId, userId, content,
-                registrationImgUrl, date, time, startRepeatDate, sortedRepeatDays,
-                destinationLongitude, destinationLatitude, isCompleted);
+        return new RoutineResponseDto(routineId, routineIdentifier, userId, content, registrationImgUrl, date, time,
+                startRepeatDate, repeatDays, destinationLongitude, destinationLatitude, isCompleted);
     }
 }

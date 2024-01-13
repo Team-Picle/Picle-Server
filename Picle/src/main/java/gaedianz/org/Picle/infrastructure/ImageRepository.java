@@ -6,4 +6,7 @@ import gaedianz.org.Picle.domain.Image;
 public interface ImageRepository extends Repository<Image, Long> {
     // CREATE
     void save(Image image);
+
+    // DELETE
+    void deleteById(Long imageId);
 }

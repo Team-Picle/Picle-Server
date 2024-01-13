@@ -1,6 +1,5 @@
 package gaedianz.org.Picle.controller.dto.request;
 
-import gaedianz.org.Picle.domain.RepeatDay;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
@@ -25,20 +25,19 @@ public class RoutineRequestDto {
     private String registrationImgUrl;
 
     @NotNull
-    @Schema(description = "날짜")
+    @Schema(description = "루틴 날짜")
     private LocalDate date;
 
-    @NotNull
     @Schema(description = "시간")
     private LocalTime time;
 
     @NotNull
-    @Schema(description = "반복 시작 날짜")
+    @Schema(description = "루틴 시작 날짜")
     private LocalDate startRepeatDate;
 
     @NotNull
-    @Schema(description = "반복 시작 날짜")
-    private Set<RepeatDay> repeatDays;
+    @Schema(description = "반복 요일")
+    private Set<DayOfWeek> repeatDays;
 
     @NotNull
     @Schema(description = "루틴 등록 경도")
@@ -47,8 +46,4 @@ public class RoutineRequestDto {
     @NotNull
     @Schema(description = "루틴 등록 위도")
     private Double destinationLatitude;
-
-    @NotNull
-    @Schema(description = "완료 여부")
-    private Boolean isCompleted;
 }
