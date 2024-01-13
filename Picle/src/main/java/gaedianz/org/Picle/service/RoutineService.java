@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +23,38 @@ public class RoutineService {
     private final UserRepository userRepository;
     private final RoutineRepository routineRepository;
     private final ImageService imageService;
+
+    @Transactional
+    public List<RoutineResponseDto> getRoutinesByDate(Long userId, LocalDate date) {
+        userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(Error.NOT_FOUND_USER_EXCEPTION, Error.NOT_FOUND_USER_EXCEPTION.getMessage()));
+
+        List<Routine> routines = routineRepository.findByUserIdAndDate(userId, date);
+
+        if (routines.isEmpty()) {
+            throw new NotFoundException(Error.NOT_FOUND_ROUTINE_EXCEPTION, Error.NOT_FOUND_ROUTINE_EXCEPTION.getMessage());
+        }
+
+        return routines.stream()
+                .map(this::convertToResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<RoutineResponseDto> getCompletedRoutines(Long userId, LocalDate date) {
+        userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(Error.NOT_FOUND_USER_EXCEPTION, Error.NOT_FOUND_USER_EXCEPTION.getMessage()));
+
+        List<Routine> routines = routineRepository.findCompletedRoutines(userId, date);
+
+        if (routines.isEmpty()) {
+            throw new NotFoundException(Error.NOT_FOUND_ROUTINE_EXCEPTION, Error.NOT_FOUND_ROUTINE_EXCEPTION.getMessage());
+        }
+
+        return routines.stream()
+                .map(this::convertToResponseDto)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public List<RoutineResponseDto> createRoutine(Long userId, RoutineRequestDto request) {
