@@ -9,8 +9,10 @@ import gaedianz.org.Picle.exception.Error;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +25,22 @@ import static gaedianz.org.Picle.common.dto.ApiResponse.success;
 public class RoutineController {
     @Autowired
     private RoutineService routineService;
+
+    @GetMapping("/routine/getByDate/{userId}")
+    public ApiResponse<List<RoutineResponseDto>> getRoutinesByDate(
+            @PathVariable Long userId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        List<RoutineResponseDto> routines = routineService.getRoutinesByDate(userId, date);
+        return success(Success.GET_ROUTINELIST_BY_DATE_SUCCESS, routines);
+    }
+
+    @GetMapping("/routine/getCompletedByDate/{userId}")
+    public ApiResponse<List<RoutineResponseDto>> getCompletedTodosByDateAndUserId(
+            @PathVariable("userId") Long userId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        List<RoutineResponseDto> completedRoutines = routineService.getCompletedRoutines(userId, date);
+        return ApiResponse.success(Success.GET_COMPLETED_ROUTINELIST_BY_DATE_SUCCESS, completedRoutines);
+    }
 
     @PostMapping("/routine/create/{userId}")
     public ApiResponse<List<RoutineResponseDto>> createRoutine(
