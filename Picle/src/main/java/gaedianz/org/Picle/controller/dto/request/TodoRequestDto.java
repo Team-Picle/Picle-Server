@@ -19,8 +19,4 @@ public class TodoRequestDto {
     @NotNull
     @Schema(description = "날짜")
     private LocalDate date;
-
-    @NotNull
-    @Schema(description = "완료 여부")
-    private boolean isCompleted;
 }

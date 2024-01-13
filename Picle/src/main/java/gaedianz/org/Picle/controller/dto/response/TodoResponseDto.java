@@ -11,13 +11,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class TodoResponseDto {
-    private Long todoId;
+    private Long id;
     private Long userId;
     private String content;
     private LocalDate date;
     private Boolean isCompleted;
 
-    public static TodoResponseDto of(Long todoId, Long userId, String content, LocalDate date, Boolean isCompleted) {
-        return new TodoResponseDto(todoId, userId, content, date, isCompleted);
+    public static TodoResponseDto of(Long id, Long userId, String content, LocalDate date, Boolean isCompleted) {
+        return new TodoResponseDto(id, userId, content, date, isCompleted);
     }
 }

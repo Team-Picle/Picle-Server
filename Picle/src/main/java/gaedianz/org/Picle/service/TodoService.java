@@ -40,7 +40,7 @@ public class TodoService {
     public TodoResponseDto createTodo(Long userId, TodoRequestDto request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(Error.NOT_FOUND_USER_EXCEPTION, Error.NOT_FOUND_USER_EXCEPTION.getMessage()));
-        Todo todo = Todo.newInstance(user, request.getContent(), request.getDate(), request.isCompleted());
+        Todo todo = Todo.newInstance(user, request.getContent(), request.getDate(), false);
         todoRepository.save(todo);
 
         return TodoResponseDto.of(todo.getId(), userId, todo.getContent(), todo.getDate(), todo.getIsCompleted());
