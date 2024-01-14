@@ -36,8 +36,7 @@ public class Routine extends AuditingTimeEntity {
     @Column(nullable = false)
     private String registrationImgUrl;
 
-    @OneToMany(mappedBy = "routine", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Image> verifiedImgUrl = new ArrayList<>();
+    private String verifiedImgUrl;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @Column(nullable = false)
