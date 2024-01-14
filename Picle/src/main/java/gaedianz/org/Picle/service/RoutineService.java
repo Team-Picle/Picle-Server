@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 public class RoutineService {
     private final UserRepository userRepository;
     private final RoutineRepository routineRepository;
-    private final ImageService imageService;
 
     @Transactional
     public List<RoutineResponseDto> getRoutinesByDate(Long userId, LocalDate date) {
@@ -114,7 +113,6 @@ public class RoutineService {
         // 현재 날짜 이후의 루틴이거나 완료하지 않은 루틴을 삭제
         for (Routine routine : routinesToDelete) {
             if (!routine.getDate().isBefore(LocalDate.now()) || !routine.getIsCompleted()) {
-                routine.getVerifiedImgUrl().forEach(image -> imageService.deleteImage(image.getId()));
                 routine.getRepeatDays().clear();
                 routineRepository.delete(routine);
             }
