@@ -24,7 +24,7 @@
 
 ```jsx
 📁 src. 📁 main. 📁 java
-|                   |_ 📁 sopt. 📁 org. 📁 Picle
+|                   |_ 📁 gaedianz. 📁 org. 📁 Picle
 |                   |                          |_ 📁 common
 |                   |                          |_ 📁 controller
 |                   |                          |_ 📁 domain
