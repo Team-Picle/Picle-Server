@@ -48,7 +48,7 @@
 
 ## 😉 API 명세서
 
-[최종명세서(진행 중)](https://hollow-humidity-50e.notion.site/getCompletedByDay-1523d1c877b6444ab837171c6c3ba215?pvs=4)
+[최종명세서](https://hollow-humidity-50e.notion.site/API-Docs-0d0c3eb6687245a5bff093bd412671ab?pvs=4)
 
 </br>
 
