@@ -24,10 +24,6 @@ public class RoutineRequestDto {
     @Schema(description = "루틴 등록 이미지")
     private String registrationImgUrl;
 
-    @NotNull
-    @Schema(description = "루틴 날짜")
-    private LocalDate date;
-
     @Schema(description = "시간")
     private LocalTime time;
 

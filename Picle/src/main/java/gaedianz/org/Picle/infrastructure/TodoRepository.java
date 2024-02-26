@@ -14,14 +14,9 @@ public interface TodoRepository extends Repository<Todo, Long> {
     void save(Todo todo);
 
     // READ
-    Optional<Todo> findById(Long todoId);
-
-    // Todo 엔티티에서 user 필드 참조해서 userId와 todoId를 통해 해당 투두 조회
-    @Query("SELECT t FROM Todo t WHERE t.user.id = :userId AND t.id = :todoId")
-    Optional<Todo> findByUserIdAndTodoId(Long userId, Long todoId);
     List<Todo> findByUserIdAndDate(Long userId, LocalDate date);
-    @Query("SELECT t FROM Todo t WHERE t.user.id = :userId AND t.date = :date AND t.isCompleted = true")
-    List<Todo> findCompletedTodos(Long userId, LocalDate date);
+    @Query("SELECT t FROM Todo t WHERE t.id = :todoId AND t.user.id = :userId")
+    Optional<Todo> findByIdAndUserId(Long todoId, Long userId);
 
     // UPDATE
 
