@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class RoutineResponseDto {
     private Long routineId;
-    private Long routineIdentifier;
     private Long userId;
     private String content;
     private String registrationImgUrl;
@@ -28,12 +27,14 @@ public class RoutineResponseDto {
     private Double destinationLongitude;
     private Double destinationLatitude;
     private Boolean isCompleted;
+    private Boolean isPreview;
 
-    public static RoutineResponseDto of(Long routineId, Long routineIdentifier, Long userId, String content,
+    public static RoutineResponseDto of(Long routineId, Long userId, String content,
                                         String registrationImgUrl, LocalDate date, LocalTime time,
                                         LocalDate startRepeatDate, Set<DayOfWeek> repeatDays,
-                                        Double destinationLongitude, Double destinationLatitude, Boolean isCompleted){
-        return new RoutineResponseDto(routineId, routineIdentifier, userId, content, registrationImgUrl, date, time,
-                startRepeatDate, repeatDays, destinationLongitude, destinationLatitude, isCompleted);
+                                        Double destinationLongitude, Double destinationLatitude,
+                                        Boolean isCompleted, Boolean isPreview){
+        return new RoutineResponseDto(routineId, userId, content, registrationImgUrl, date, time,
+                startRepeatDate, repeatDays, destinationLongitude, destinationLatitude, isCompleted, isPreview);
     }
 }
