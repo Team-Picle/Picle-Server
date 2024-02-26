@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,8 +21,6 @@ public class Routine extends AuditingTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "routine_id")
     private Long id;
-
-    private Long routineIdentifier;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
@@ -39,10 +35,9 @@ public class Routine extends AuditingTimeEntity {
     private String verifiedImgUrl;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    @Column(nullable = false)
     private LocalDate date;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm", timezone = "Asia/Seoul")
     private LocalTime time;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
@@ -51,7 +46,7 @@ public class Routine extends AuditingTimeEntity {
 
     @ElementCollection
     @CollectionTable(name = "routine_repeat_days", joinColumns = @JoinColumn(name = "routine_id"))
-    @Column(name = "repeat_day", nullable = false)
+    @Column(name = "repeat_day")
     @Enumerated(EnumType.STRING)
     private Set<DayOfWeek> repeatDays;
 
@@ -68,29 +63,54 @@ public class Routine extends AuditingTimeEntity {
     @Column(nullable = false)
     private Boolean isCompleted;
 
-    private Routine(User user, String content, String registrationImgUrl, LocalDate date, LocalTime time,
-                    LocalDate startRepeatDate, Set<DayOfWeek> repeatDays,
-                    Double destinationLongitude, Double destinationLatitude, Boolean isCompleted) {
+    @Column(nullable = false)
+    private Boolean isPreview;
+
+    private Routine(User user, String content, String registrationImgUrl,
+                    LocalTime time, LocalDate startRepeatDate, Set<DayOfWeek> repeatDays,
+                    Double destinationLongitude, Double destinationLatitude,
+                    Boolean isCompleted, Boolean isPreview) {
         this.user = user;
         this.content = content;
         this.registrationImgUrl = registrationImgUrl;
-        this.date = date;
         this.time = time;
         this.startRepeatDate = startRepeatDate;
         this.repeatDays = repeatDays;
         this.destinationLongitude = destinationLongitude;
         this.destinationLatitude = destinationLatitude;
         this.isCompleted = isCompleted;
+        this.isPreview = isPreview;
     }
 
-    public static Routine newInstance(User user, String content, String registrationImgUrl, LocalDate date, LocalTime time,
-                                      LocalDate startRepeatDate, Set<DayOfWeek> repeatDays,
-                                      Double destinationLongitude, Double destinationLatitude, Boolean isCompleted) {
-        return new Routine(user, content, registrationImgUrl, date, time, startRepeatDate, repeatDays, destinationLongitude, destinationLatitude, isCompleted);
+    private Routine(User user, String content, String registrationImgUrl,
+                    LocalDate date, LocalTime time, LocalDate startRepeatDate,
+                    Double destinationLongitude, Double destinationLatitude,
+                    Boolean isCompleted, Boolean isPreview) {
+        this.user = user;
+        this.content = content;
+        this.registrationImgUrl = registrationImgUrl;
+        this.date = date;
+        this.time = time;
+        this.startRepeatDate = startRepeatDate;
+        this.destinationLongitude = destinationLongitude;
+        this.destinationLatitude = destinationLatitude;
+        this.isCompleted = isCompleted;
+        this.isPreview = isPreview;
     }
 
-    public void addImage(Image image) {
-        verifiedImgUrl.add(image);
-        image.setRoutine(this);
+    public static Routine newInstance(User user, String content, String registrationImgUrl,
+                                      LocalTime time, LocalDate startRepeatDate, Set<DayOfWeek> repeatDays,
+                                      Double destinationLongitude, Double destinationLatitude,
+                                      Boolean isCompleted, Boolean isPreview) {
+        return new Routine(user, content, registrationImgUrl, time, startRepeatDate, repeatDays,
+                destinationLongitude, destinationLatitude, isCompleted, isPreview);
+    }
+
+    public static Routine newInstance(User user, String content, String registrationImgUrl,
+                                      LocalDate date, LocalTime time, LocalDate startRepeatDate,
+                                      Double destinationLongitude, Double destinationLatitude,
+                                      Boolean isCompleted, Boolean isPreview) {
+        return new Routine(user, content, registrationImgUrl, date, time, startRepeatDate,
+                destinationLongitude, destinationLatitude, isCompleted, isPreview);
     }
 }

@@ -1,5 +1,5 @@
 # Picle-Server
-숙명여자대학교 소프트웨어학부 졸업 프로젝트 🥒 피클 🥒 서버 레포
+숙명여자대학교 소프트웨어학부 졸업 프로젝트 🥒 피클 🥒 서버 레포 (2023.09 ~ 진행 중🛠)
 
 </br>
 
@@ -8,18 +8,23 @@
 
 |담당자|담당 내용|
 |:---|:---|
-|김윤지|Git & 프로젝트 세팅, 전체 API 작성, AWS 설정 및 배포|
+|김윤지|Git & 프로젝트 세팅, ERD 설계, 전체 API 작성, 배포|
 
 
 </br>
 
+## 🛠 기술 스택
+<img src="https://img.shields.io/badge/Java-1A6C80?style=flat-square&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat-square&logo=Spring Boot&logoColor=white"> <img src="https://img.shields.io/badge/Hibernate-59666C?style=flat-square&logo=Hibernate&logoColor=white"> <img src="https://img.shields.io/badge/MYSQL-4479A1?style=flat-square&logo=MYSQL&logoColor=white"> <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=flat-square&logo=Amazon EC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=flat-square&logo=Amazon RDS&logoColor=white">
 
+</br>
+
+</div>
 
 # 📁 Folder 구조
 
 ```jsx
 📁 src. 📁 main. 📁 java
-|                   |_ 📁 sopt. 📁 org. 📁 Picle
+|                   |_ 📁 gaedianz. 📁 org. 📁 Picle
 |                   |                          |_ 📁 common
 |                   |                          |_ 📁 controller
 |                   |                          |_ 📁 domain
@@ -41,14 +46,14 @@
 </br>
 
 
-## 😉 API 최종명세서
+## 😉 API 명세서
 
 [최종명세서](https://hollow-humidity-50e.notion.site/API-Docs-0d0c3eb6687245a5bff093bd412671ab?pvs=4)
 
 </br>
 
 ## 💽 Database ERD
-<img width="673" alt="Picle ERD" src="https://github.com/Team-Picle/Picle-Server/assets/101168694/4d4154cd-9764-4351-981c-f47da1ea547b">
+<img width="602" alt="스크린샷 2024-02-02 오후 5 34 54" src="https://github.com/Team-Picle/Picle-Server/assets/101168694/7ebce724-8485-4a62-a5a5-cbf54ea9a623">
 
 
 </br>
