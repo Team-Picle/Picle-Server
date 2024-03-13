@@ -123,6 +123,7 @@ public class RoutineService {
         if (routine.getIsPreview() == true) {
             newRoutine = Routine.newInstance(
                     user,
+                    routineId,
                     routine.getContent(),
                     routine.getRegistrationImgUrl(),
                     date,
@@ -234,6 +235,7 @@ public class RoutineService {
     private RoutineResponseDto convertToResponseDto(Routine routine) {
         return RoutineResponseDto.of(
                 routine.getId(),
+                routine.getRoutineIdentifier(),
                 routine.getUser().getId(),
                 routine.getContent(),
                 routine.getRegistrationImgUrl(),

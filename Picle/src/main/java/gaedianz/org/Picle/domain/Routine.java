@@ -26,6 +26,9 @@ public class Routine extends AuditingTimeEntity {
     @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private User user;
 
+    @Column
+    private Long routineIdentifier;
+
     @Column(nullable = false)
     private String content;
 
@@ -66,6 +69,7 @@ public class Routine extends AuditingTimeEntity {
     @Column(nullable = false)
     private Boolean isPreview;
 
+    // createPreview
     private Routine(User user, String content, String registrationImgUrl,
                     LocalTime time, LocalDate startRepeatDate, Set<DayOfWeek> repeatDays,
                     Double destinationLongitude, Double destinationLatitude,
@@ -82,11 +86,13 @@ public class Routine extends AuditingTimeEntity {
         this.isPreview = isPreview;
     }
 
-    private Routine(User user, String content, String registrationImgUrl,
+    // createRoutine
+    private Routine(User user, Long routineIdentifier, String content, String registrationImgUrl,
                     LocalDate date, LocalTime time, LocalDate startRepeatDate,
                     Double destinationLongitude, Double destinationLatitude,
                     Boolean isCompleted, Boolean isPreview) {
         this.user = user;
+        this.routineIdentifier = routineIdentifier;
         this.content = content;
         this.registrationImgUrl = registrationImgUrl;
         this.date = date;
@@ -98,6 +104,7 @@ public class Routine extends AuditingTimeEntity {
         this.isPreview = isPreview;
     }
 
+    //createPreview
     public static Routine newInstance(User user, String content, String registrationImgUrl,
                                       LocalTime time, LocalDate startRepeatDate, Set<DayOfWeek> repeatDays,
                                       Double destinationLongitude, Double destinationLatitude,
@@ -106,11 +113,12 @@ public class Routine extends AuditingTimeEntity {
                 destinationLongitude, destinationLatitude, isCompleted, isPreview);
     }
 
-    public static Routine newInstance(User user, String content, String registrationImgUrl,
+    // createRoutine
+    public static Routine newInstance(User user, Long routineIdentifier, String content, String registrationImgUrl,
                                       LocalDate date, LocalTime time, LocalDate startRepeatDate,
                                       Double destinationLongitude, Double destinationLatitude,
                                       Boolean isCompleted, Boolean isPreview) {
-        return new Routine(user, content, registrationImgUrl, date, time, startRepeatDate,
+        return new Routine(user, routineIdentifier, content, registrationImgUrl, date, time, startRepeatDate,
                 destinationLongitude, destinationLatitude, isCompleted, isPreview);
     }
 }
