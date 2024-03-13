@@ -16,6 +16,7 @@ public enum Error {
     INVALID_MULTIPART_EXTENSION_EXCEPTION(HttpStatus.BAD_REQUEST, "확장자가 올바르지 않습니다"),
     IMAGE_VERIFICATION_FAILED_EXCEPTION(HttpStatus.BAD_REQUEST, "이미지 유사도 검증에 실패했습니다"),
     LOCATION_VERIFICATION_FAILED_EXCEPTION(HttpStatus.BAD_REQUEST, "위치 검증에 실패했습니다"),
+    DATE_VERIFICATION_FAILED_EXCEPTION(HttpStatus.BAD_REQUEST, "날짜 검증에 실패했습니다"),
 
 
     /**
