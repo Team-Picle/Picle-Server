@@ -177,7 +177,7 @@ public class RoutineService {
                     routine.getDestinationLongitude(), routine.getDestinationLatitude(), 50.0)) {
 
                 // OpenCV를 사용하여 이미지 유사도 검증 수행
-                if (imageSimilarityCheck(routine.getRegistrationImgUrl(), request.getVerifiedImgUrl()) >= 0.8) {
+                if (imageSimilarityCheck(routine.getRegistrationImgUrl(), request.getVerifiedImgUrl()) >= 0.65) {
                     routine.setIsCompleted(true);
                     routine.setVerifiedImgUrl(request.getVerifiedImgUrl());
                     routine.setCurrentLongitude(request.getCurrentLongitude());

@@ -87,7 +87,7 @@ public class RoutineController {
             @PathVariable Long userId,
             @PathVariable Long routineId,
             @RequestBody @Valid UpdateRoutineRequestDto request) {
-        RoutineResponseDto updatePreviewResponse= routineService.updatePreview(userId, routineId, request);
+        RoutineResponseDto updatePreviewResponse = routineService.updatePreview(userId, routineId, request);
         return success(Success.UPDATE_ROUTINE_SUCCESS, updatePreviewResponse);
     }
 
