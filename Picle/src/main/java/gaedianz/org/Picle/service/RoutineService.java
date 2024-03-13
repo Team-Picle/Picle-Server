@@ -10,6 +10,7 @@ import gaedianz.org.Picle.controller.dto.response.VerifyRoutineResponseDto;
 import gaedianz.org.Picle.domain.Routine;
 import gaedianz.org.Picle.domain.User;
 import gaedianz.org.Picle.exception.Error;
+import gaedianz.org.Picle.exception.model.DateVerificationFailedException;
 import gaedianz.org.Picle.exception.model.ImageVerificationFailedException;
 import gaedianz.org.Picle.exception.model.LocationVerificationFailedException;
 import gaedianz.org.Picle.exception.model.NotFoundException;
@@ -169,43 +170,51 @@ public class RoutineService {
         Routine routine = routineRepository.findById(routineId)
                 .orElseThrow(() -> new NotFoundException(Error.NOT_FOUND_ROUTINE_EXCEPTION, Error.NOT_FOUND_ROUTINE_EXCEPTION.getMessage()));
 
-        // 유저가 루틴을 수행할 목적지의 반경 50m 내에 존재하는 지 검증
-        if (isWithinDistance(request.getCurrentLongitude(), request.getCurrentLatitude(),
-                routine.getDestinationLongitude(), routine.getDestinationLatitude(), 50.0)) {
+        // 유저가 루틴을 수행하는 날짜가 루틴 생성 시 설정한 날짜와 동일한 지 검증
+        if (routine.getDate().isEqual(date)) {
+            // 유저가 루틴을 수행할 목적지의 반경 50m 내에 존재하는 지 검증
+            if (isWithinDistance(request.getCurrentLongitude(), request.getCurrentLatitude(),
+                    routine.getDestinationLongitude(), routine.getDestinationLatitude(), 50.0)) {
 
-            // OpenCV를 사용하여 이미지 유사도 검증 수행
-            if (imageSimilarityCheck(routine.getRegistrationImgUrl(), request.getVerifiedImgUrl()) >= 0.8) {
-                routine.setIsCompleted(true);
-                routine.setVerifiedImgUrl(request.getVerifiedImgUrl());
-                routine.setCurrentLongitude(request.getCurrentLongitude());
-                routine.setCurrentLatitude(request.getCurrentLatitude());
-                routineRepository.save(routine);
-                return VerifyRoutineResponseDto.of(
-                        routineId,
-                        userId,
-                        routine.getContent(),
-                        routine.getRegistrationImgUrl(),
-                        routine.getVerifiedImgUrl(),
-                        routine.getDate(),
-                        routine.getTime(),
-                        routine.getStartRepeatDate(),
-                        routine.getDestinationLongitude(),
-                        routine.getDestinationLatitude(),
-                        routine.getCurrentLongitude(),
-                        routine.getCurrentLatitude(),
-                        routine.getIsCompleted()
-                );
+                // OpenCV를 사용하여 이미지 유사도 검증 수행
+                if (imageSimilarityCheck(routine.getRegistrationImgUrl(), request.getVerifiedImgUrl()) >= 0.8) {
+                    routine.setIsCompleted(true);
+                    routine.setVerifiedImgUrl(request.getVerifiedImgUrl());
+                    routine.setCurrentLongitude(request.getCurrentLongitude());
+                    routine.setCurrentLatitude(request.getCurrentLatitude());
+                    routineRepository.save(routine);
+                    return VerifyRoutineResponseDto.of(
+                            routineId,
+                            userId,
+                            routine.getContent(),
+                            routine.getRegistrationImgUrl(),
+                            routine.getVerifiedImgUrl(),
+                            routine.getDate(),
+                            routine.getTime(),
+                            routine.getStartRepeatDate(),
+                            routine.getDestinationLongitude(),
+                            routine.getDestinationLatitude(),
+                            routine.getCurrentLongitude(),
+                            routine.getCurrentLatitude(),
+                            routine.getIsCompleted()
+                    );
+                } else {
+                    routine.setIsCompleted(false);
+                    throw new ImageVerificationFailedException(
+                            Error.IMAGE_VERIFICATION_FAILED_EXCEPTION,
+                            Error.IMAGE_VERIFICATION_FAILED_EXCEPTION.getMessage()
+                    );
+                }
             } else {
-                routine.setIsCompleted(false);
-                throw new ImageVerificationFailedException(
-                        Error.IMAGE_VERIFICATION_FAILED_EXCEPTION,
-                        Error.IMAGE_VERIFICATION_FAILED_EXCEPTION.getMessage()
+                throw new LocationVerificationFailedException(
+                        Error.LOCATION_VERIFICATION_FAILED_EXCEPTION,
+                        Error.LOCATION_VERIFICATION_FAILED_EXCEPTION.getMessage()
                 );
             }
         } else {
-            throw new LocationVerificationFailedException(
-                    Error.LOCATION_VERIFICATION_FAILED_EXCEPTION,
-                    Error.LOCATION_VERIFICATION_FAILED_EXCEPTION.getMessage()
+            throw new DateVerificationFailedException(
+                    Error.DATE_VERIFICATION_FAILED_EXCEPTION,
+                    Error.DATE_VERIFICATION_FAILED_EXCEPTION.getMessage()
             );
         }
     }
