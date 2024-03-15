@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 public class ImageVerificationService {
     public double verifyImageSimilarity(String imageUrl1, String imageUrl2) {
         try {
-            String flaskServerUrl = "http://127.0.0.1:5000/verify-image-similarity";
+            String flaskServerUrl = "http://13.209.238.192:5000/verify-image-similarity";
 
             // HTTP 요청 바디 설정
             HttpHeaders headers = new HttpHeaders();
