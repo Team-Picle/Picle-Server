@@ -58,14 +58,14 @@ public class RoutineService {
     }
 
     public List<FeedResponseDto> getMyFeeds(Long userId) {
-        User user = userRepository.findById(userId)
+         userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(Error.NOT_FOUND_USER_EXCEPTION, Error.NOT_FOUND_USER_EXCEPTION.getMessage()));
 
         List<Routine> feeds = routineRepository.findByUserId(userId);
 
         return feeds.stream()
                 .filter(routine -> routine.getIsCompleted())
-                .map(routine -> convertToFeedResponseDto(routine, user))
+                .map(routine -> convertToFeedResponseDto(routine))
                 .collect(Collectors.toList());
     }
 
@@ -230,6 +230,7 @@ public class RoutineService {
     private PreviewResponseDto convertToPreviewResponseDto(Routine routine) {
         return PreviewResponseDto.of(
                 routine.getId(),
+                routine.getUser().getId(),
                 routine.getContent(),
                 routine.getTime(),
                 routine.getStartRepeatDate(),
@@ -255,11 +256,11 @@ public class RoutineService {
         );
     }
 
-    private FeedResponseDto convertToFeedResponseDto(Routine routine, User user) {
+    private FeedResponseDto convertToFeedResponseDto(Routine routine) {
         return FeedResponseDto.of(
                 routine.getId(),
-                user.getProfileImage(),
-                user.getNickname(),
+                routine.getUser().getProfileImage(),
+                routine.getUser().getNickname(),
                 routine.getVerifiedImgUrl(),
                 routine.getDate()
         );
