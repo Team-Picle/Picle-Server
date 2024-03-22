@@ -51,10 +51,6 @@ public class RoutineService {
 
         List<Routine> routines = routineRepository.findByUserIdAndDate(userId, date);
 
-        if (routines.isEmpty()) {
-            throw new NotFoundException(Error.NOT_FOUND_ROUTINE_EXCEPTION, Error.NOT_FOUND_ROUTINE_EXCEPTION.getMessage());
-        }
-
         return routines.stream()
                 .filter(routine -> !routine.getIsPreview())
                 .map(this::convertToResponseDto)
