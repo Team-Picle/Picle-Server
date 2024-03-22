@@ -78,7 +78,7 @@ public class RoutineService {
 
             feeds.addAll(routines.stream()
                     .filter(routine -> routine.getIsCompleted())
-                    .map(routine -> convertToFeedResponseDto(routine, user))
+                    .map(routine -> convertToFeedResponseDto(routine))
                     .collect(Collectors.toList()));
         }
 
