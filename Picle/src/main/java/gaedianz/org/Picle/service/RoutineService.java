@@ -167,7 +167,7 @@ public class RoutineService {
                 .orElseThrow(() -> new NotFoundException(Error.NOT_FOUND_ROUTINE_EXCEPTION, Error.NOT_FOUND_ROUTINE_EXCEPTION.getMessage()));
 
         // 유저가 루틴을 수행하는 날짜가 루틴 생성 시 설정한 날짜와 동일한 지 검증
-        if (routine.getDate().isEqual(date)) {
+        if (date.isEqual(LocalDate.now())) {
             // 유저가 루틴을 수행할 목적지의 반경 50m 내에 존재하는 지 검증
             if (isWithinDistance(request.getCurrentLongitude(), request.getCurrentLatitude(),
                     routine.getDestinationLongitude(), routine.getDestinationLatitude(), 50.0)) {
