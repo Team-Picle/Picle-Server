@@ -16,7 +16,7 @@ import java.util.Set;
 @Getter
 public class VerifyRoutineResponseDto {
     @NotNull
-    private final Long id;
+    private final Long routineId;
 
     @NotNull
     private final Long userId;
