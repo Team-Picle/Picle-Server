@@ -1,22 +1,18 @@
 package gaedianz.org.Picle.controller.dto.response;
 
-import gaedianz.org.Picle.domain.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.io.Serializable;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Set;
 
 @AllArgsConstructor
 @Getter
 public class VerifyRoutineResponseDto {
     @NotNull
-    private final Long id;
+    private final Long routineId;
 
     @NotNull
     private final Long userId;
