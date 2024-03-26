@@ -18,18 +18,17 @@ public class UserService {
     @Transactional
     public UserResponseDto registerUserWithOAuth(UserRequestDto request) {
 
-        // 유저 존재 여부 검증
+        // 유저가 존재하면 유저 정보 리턴
         if (userRepository.existsByClientKey(request.getClientKey())) {
-            throw new ConflictException(Error.ALREADY_EXIST_USER_EXCEPTION, Error.ALREADY_EXIST_USER_EXCEPTION.getMessage());
+            User user = userRepository.findByClientKey(request.getClientKey());
+            return UserResponseDto.of(user.getClientKey(), user.getId(), user.getNickname(), user.getProfileImage());
         }
-
         User user = User.of(
                 request.getClientKey(),
                 request.getNickname(),
                 request.getProfileImage(),
                 request.getSocialPlatform()
         );
-
         userRepository.save(user);
 
         return UserResponseDto.of(user.getClientKey(), user.getId(), user.getNickname(), user.getProfileImage());
