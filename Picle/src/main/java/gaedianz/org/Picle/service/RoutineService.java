@@ -18,7 +18,6 @@ import gaedianz.org.Picle.infrastructure.RoutineRepository;
 import gaedianz.org.Picle.infrastructure.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

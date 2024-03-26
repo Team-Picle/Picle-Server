@@ -12,7 +12,7 @@ public enum Success {
     /**
      * 201 CREATED
      */
-    SIGNUP_SUCCESS(HttpStatus.CREATED, "회원가입이 완료됐습니다."),
+    SIGNUP_SIGNIN_SUCCESS(HttpStatus.CREATED, "회원가입/로그인이 완료됐습니다."),
     CREATE_TODO_SUCCESS(HttpStatus.CREATED, "투두 생성이 완료됐습니다."),
     CREATE_PREVIEW_SUCCESS(HttpStatus.CREATED, "루틴 미리보기 생성이 완료됐습니다."),
     CREATE_ROUTINE_SUCCESS(HttpStatus.CREATED, "루틴 생성이 완료됐습니다."),
