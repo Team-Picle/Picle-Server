@@ -82,6 +82,8 @@ public class RoutineService {
                     .collect(Collectors.toList()));
         }
 
+        Collections.shuffle(feeds);
+
         return feeds;
     }
 
