@@ -24,12 +24,15 @@ public interface RoutineRepository extends Repository<Routine, Long> {
     List<Routine> findByUserIdAndDate(Long userId, LocalDate date);
     @Query("SELECT r FROM Routine r WHERE r.id = :routineId AND r.isPreview = true")
     Optional<Routine> findByIdAndIsPreview(Long routineId);
-    List<Routine> findByUserId(Long userId);
-    @Query("SELECT r FROM Routine r WHERE r.isCompleted = true AND r.date = :todayDate")
-    List<Routine> findCompletedRoutinesByDate(LocalDate todayDate);
 
     // UPDATE
 
     // DELETE
     void delete(Routine routine);
+
+    @Query("SELECT r FROM Routine r WHERE r.user.id = :userId AND r.isCompleted = true ORDER BY r.date DESC, r.time DESC")
+    List<Routine> findCompletedByUserId(Long userId);
+
+    @Query("SELECT r FROM Routine r WHERE r.user.id <> :userId AND r.isCompleted = true ORDER BY r.date DESC, r.time DESC")
+    List<Routine> findCompletedByUserIdNot(Long userId);
 }

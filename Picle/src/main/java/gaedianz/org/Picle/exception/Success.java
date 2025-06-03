@@ -17,7 +17,6 @@ public enum Success {
     CREATE_PREVIEW_SUCCESS(HttpStatus.CREATED, "루틴 미리보기 생성이 완료됐습니다."),
     CREATE_ROUTINE_SUCCESS(HttpStatus.CREATED, "루틴 생성이 완료됐습니다."),
 
-
     /**
      * 200 OK
      */
@@ -34,7 +33,11 @@ public enum Success {
     DELETE_ROUTINE_SUCCESS(HttpStatus.OK, "루틴 삭제가 완료됐습니다."),
     VERIFY_ROUTINE_SUCCESS(HttpStatus.OK, "루틴 검증이 완료됐습니다."),
     ALREADY_VERIFIED_ROUTINE(HttpStatus.OK, "이미 검증된 루틴입니다."),
-    FINISH_ROUTINE_SUCCESS(HttpStatus.OK, "루틴 종료가 완료됐습니다.")
+    FINISH_ROUTINE_SUCCESS(HttpStatus.OK, "루틴 종료가 완료됐습니다."),
+    GET_MY_FEED_SUCCESS(HttpStatus.OK, "나의 피드를 성공적으로 불러왔습니다"),
+    GET_EXPLORE_FEED_SUCCESS(HttpStatus.OK, "탐색 피드를 성공적으로 불러왔습니다"),
+    LIKE_ROUTINE_SUCCESS(HttpStatus.OK, "루틴에 좋아요를 등록했습니다"),
+    UNLIKE_ROUTINE_SUCCESS(HttpStatus.OK, "루틴에 누른 좋아요를 취소했습니다")
     ;
 
     private final HttpStatus httpStatus;

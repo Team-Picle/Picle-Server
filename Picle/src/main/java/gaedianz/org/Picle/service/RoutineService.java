@@ -3,10 +3,7 @@ package gaedianz.org.Picle.service;
 import gaedianz.org.Picle.controller.dto.request.RoutineRequestDto;
 import gaedianz.org.Picle.controller.dto.request.UpdateRoutineRequestDto;
 import gaedianz.org.Picle.controller.dto.request.VerifyRoutineRequestDto;
-import gaedianz.org.Picle.controller.dto.response.FeedResponseDto;
-import gaedianz.org.Picle.controller.dto.response.PreviewResponseDto;
-import gaedianz.org.Picle.controller.dto.response.RoutineResponseDto;
-import gaedianz.org.Picle.controller.dto.response.VerifyRoutineResponseDto;
+import gaedianz.org.Picle.controller.dto.response.*;
 import gaedianz.org.Picle.domain.Routine;
 import gaedianz.org.Picle.domain.User;
 import gaedianz.org.Picle.exception.Error;
@@ -14,6 +11,7 @@ import gaedianz.org.Picle.exception.model.DateVerificationFailedException;
 import gaedianz.org.Picle.exception.model.ImageVerificationFailedException;
 import gaedianz.org.Picle.exception.model.LocationVerificationFailedException;
 import gaedianz.org.Picle.exception.model.NotFoundException;
+import gaedianz.org.Picle.infrastructure.RoutineLikeRepository;
 import gaedianz.org.Picle.infrastructure.RoutineRepository;
 import gaedianz.org.Picle.infrastructure.UserRepository;
 import jakarta.transaction.Transactional;
@@ -30,6 +28,8 @@ public class RoutineService {
 
     private final UserRepository userRepository;
     private final RoutineRepository routineRepository;
+    private final RoutineLikeRepository routineLikeRepository;
+    private final LikeService likeService;
     private final ImageVerificationService imageVerificationService;
 
     public List<PreviewResponseDto> getPreviews(Long userId, LocalDate date) {
@@ -57,34 +57,44 @@ public class RoutineService {
                 .collect(Collectors.toList());
     }
 
-    public List<FeedResponseDto> getMyFeeds(Long userId) {
+    public List<MyFeedResponseDto> getMyFeeds(Long userId) {
         userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(Error.NOT_FOUND_USER_EXCEPTION, Error.NOT_FOUND_USER_EXCEPTION.getMessage()));
 
-        List<Routine> feeds = routineRepository.findByUserId(userId);
+        List<Routine> myFeeds = routineRepository.findCompletedByUserId(userId);
 
-        return feeds.stream()
-                .filter(routine -> routine.getIsCompleted())
-                .map(routine -> convertToFeedResponseDto(routine))
+        List<MyFeedResponseDto> responseDtos = myFeeds.stream()
+                .map(routine -> MyFeedResponseDto.of(
+                        routine.getId(),
+                        routine.getDate(),
+                        routine.getVerifiedImgUrl(),
+                        likeService.countLikes(routine.getId())
+                ))
                 .collect(Collectors.toList());
+
+        return responseDtos;
     }
 
-    public List<FeedResponseDto> getAllFeeds() {
-        List<User> users = userRepository.findAll();
-        List<FeedResponseDto> feeds = new ArrayList<>();
+    public List<ExploreFeedResponseDto> getAllFeeds(Long userId) {
+        userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(
+                        Error.NOT_FOUND_USER_EXCEPTION,
+                        Error.NOT_FOUND_USER_EXCEPTION.getMessage()
+                ));
 
-        for (User user : users) {
-            List<Routine> routines = routineRepository.findByUserId(user.getId());
+        List<Routine> exploreRoutines = routineRepository.findCompletedByUserIdNot(userId);
 
-            feeds.addAll(routines.stream()
-                    .filter(routine -> routine.getIsCompleted())
-                    .map(routine -> convertToFeedResponseDto(routine))
-                    .collect(Collectors.toList()));
-        }
+        List<ExploreFeedResponseDto> responseDtos = exploreRoutines.stream()
+                .map(routine -> ExploreFeedResponseDto.of(
+                        routine.getId(),
+                        routine.getVerifiedImgUrl(),
+                        routine.getUser().getNickname(),
+                        routine.getUser().getProfileImage(),
+                        likeService.hasUserLiked(userId, routine.getId())
+                ))
+                .collect(Collectors.toList());
 
-        Collections.shuffle(feeds);
-
-        return feeds;
+        return responseDtos;
     }
 
     @Transactional
@@ -224,6 +234,7 @@ public class RoutineService {
         Routine routine = routineRepository.findByIdAndUserId(routineId, userId)
                 .orElseThrow(() -> new NotFoundException(Error.NOT_FOUND_ROUTINE_EXCEPTION, Error.NOT_FOUND_ROUTINE_EXCEPTION.getMessage()));
 
+        routineLikeRepository.deleteByRoutineId(routineId);
         routineRepository.delete(routine);
 
         return Optional.of(routineId);

@@ -18,7 +18,6 @@ public enum Error {
     LOCATION_VERIFICATION_FAILED_EXCEPTION(HttpStatus.BAD_REQUEST, "위치 검증에 실패했습니다"),
     DATE_VERIFICATION_FAILED_EXCEPTION(HttpStatus.BAD_REQUEST, "날짜 검증에 실패했습니다"),
 
-
     /**
      * 404 NOT FOUND
      */
@@ -27,13 +26,13 @@ public enum Error {
     NOT_FOUND_ROUTINE_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 루틴입니다"),
     NOT_FOUND_SAVE_IMAGE_EXCEPTION(HttpStatus.NOT_FOUND, "저장되지 않은 이미지입니다"),
     NOT_FOUND_IMAGE_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 이미지입니다"),
-
+    NOT_FOUND_LIKE_EXCEPTION(HttpStatus.NOT_FOUND, "좋아요가 없습니다"),
 
     /**
      * 409 CONFLICT
      */
     ALREADY_EXIST_USER_EXCEPTION(HttpStatus.CONFLICT, "이미 존재하는 유저입니다"),
-
+    CONFLICT_ROUTINE_LIKE_EXCEPTION(HttpStatus.CONFLICT, "이미 좋아요를 눌렀습니다"),
 
     /**
      * 500 INTERNAL SERVER ERROR

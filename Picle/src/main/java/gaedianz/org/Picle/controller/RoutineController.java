@@ -4,7 +4,6 @@ import gaedianz.org.Picle.common.dto.ApiResponse;
 import gaedianz.org.Picle.controller.dto.request.RoutineRequestDto;
 import gaedianz.org.Picle.controller.dto.request.UpdateRoutineRequestDto;
 import gaedianz.org.Picle.controller.dto.request.VerifyRoutineRequestDto;
-import gaedianz.org.Picle.controller.dto.response.FeedResponseDto;
 import gaedianz.org.Picle.controller.dto.response.PreviewResponseDto;
 import gaedianz.org.Picle.controller.dto.response.RoutineResponseDto;
 import gaedianz.org.Picle.controller.dto.response.VerifyRoutineResponseDto;
@@ -46,20 +45,6 @@ public class RoutineController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         List<RoutineResponseDto> routines = routineService.getByDate(userId, date);
         return ApiResponse.success(Success.GET_ROUTINELIST_BY_DATE_SUCCESS, routines);
-    }
-
-    @GetMapping("/routine/getMyFeeds/{userId}")
-    public ApiResponse<List<FeedResponseDto>> getMyFeeds(
-            @PathVariable Long userId
-    ) {
-        List<FeedResponseDto> feeds = routineService.getMyFeeds(userId);
-        return success(Success.GET_MY_FEEDS_SUCCESS, feeds);
-    }
-
-    @GetMapping("/routine/getAllFeeds")
-    public ApiResponse<List<FeedResponseDto>> getAllFeeds() {
-        List<FeedResponseDto> feeds = routineService.getAllFeeds();
-        return success(Success.GET_ALL_FEEDS_SUCCESS, feeds);
     }
 
     @PostMapping("/routine/createPreview/{userId}")
