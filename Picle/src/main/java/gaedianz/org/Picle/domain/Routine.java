@@ -69,7 +69,6 @@ public class Routine extends AuditingTimeEntity {
     @Column(nullable = false)
     private Boolean isPreview;
 
-    // createPreview
     private Routine(User user, String content, String registrationImgUrl,
                     LocalTime time, LocalDate startRepeatDate, Set<DayOfWeek> repeatDays,
                     Double destinationLongitude, Double destinationLatitude,
@@ -86,7 +85,6 @@ public class Routine extends AuditingTimeEntity {
         this.isPreview = isPreview;
     }
 
-    // createRoutine
     private Routine(User user, Long routineIdentifier, String content, String registrationImgUrl,
                     LocalDate date, LocalTime time, LocalDate startRepeatDate,
                     Double destinationLongitude, Double destinationLatitude,
@@ -104,7 +102,6 @@ public class Routine extends AuditingTimeEntity {
         this.isPreview = isPreview;
     }
 
-    //createPreview
     public static Routine newInstance(User user, String content, String registrationImgUrl,
                                       LocalTime time, LocalDate startRepeatDate, Set<DayOfWeek> repeatDays,
                                       Double destinationLongitude, Double destinationLatitude,
@@ -113,7 +110,6 @@ public class Routine extends AuditingTimeEntity {
                 destinationLongitude, destinationLatitude, isCompleted, isPreview);
     }
 
-    // createRoutine
     public static Routine newInstance(User user, Long routineIdentifier, String content, String registrationImgUrl,
                                       LocalDate date, LocalTime time, LocalDate startRepeatDate,
                                       Double destinationLongitude, Double destinationLatitude,

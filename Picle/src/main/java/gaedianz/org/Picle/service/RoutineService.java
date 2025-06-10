@@ -38,7 +38,6 @@ public class RoutineService {
 
         List<Routine> previews = routineRepository.findByUserIdAndDay(userId, date.getDayOfWeek());
 
-        // 루틴 미리보기인 지, 사용자가 조회한 날짜가 루틴 반복 시작 날짜 이후인 지
         return previews.stream()
                 .filter(routine -> routine.getIsPreview() && !routine.getStartRepeatDate().isAfter(date))
                 .map(this::convertToPreviewResponseDto)
@@ -178,13 +177,9 @@ public class RoutineService {
         Routine routine = routineRepository.findById(routineId)
                 .orElseThrow(() -> new NotFoundException(Error.NOT_FOUND_ROUTINE_EXCEPTION, Error.NOT_FOUND_ROUTINE_EXCEPTION.getMessage()));
 
-        // 유저가 루틴을 수행하는 날짜가 루틴 생성 시 설정한 날짜와 동일한 지 검증
         if (date.isEqual(LocalDate.now())) {
-            // 유저가 루틴을 수행할 목적지의 반경 50m 내에 존재하는 지 검증
             if (convertToDistance(request.getCurrentLongitude(), request.getCurrentLatitude(),
                     routine.getDestinationLongitude(), routine.getDestinationLatitude()) <= 55.0) {
-
-                // OpenCV를 사용하여 이미지 유사도 검증 수행
                 if (imageSimilarityCheck(routine.getRegistrationImgUrl(), request.getVerifiedImgUrl()) >= 0.65) {
                     routine.setIsCompleted(true);
                     routine.setVerifiedImgUrl(request.getVerifiedImgUrl());
@@ -269,16 +264,6 @@ public class RoutineService {
         );
     }
 
-    private FeedResponseDto convertToFeedResponseDto(Routine routine) {
-        return FeedResponseDto.of(
-                routine.getId(),
-                routine.getUser().getProfileImage(),
-                routine.getUser().getNickname(),
-                routine.getVerifiedImgUrl(),
-                routine.getDate()
-        );
-    }
-
     private double convertToDistance(double curLatitude, double curLongitude, double desLatitude, double desLongitude) {
         double theta, dist;
         theta = Math.abs(curLongitude - desLongitude);
@@ -289,20 +274,18 @@ public class RoutineService {
         dist = RadianToDegree(dist);
 
         dist = dist * 60 * 1.1515;
-        dist = dist * 1.609344;    // 단위 mile 에서 km 변환.
-        dist = dist * 1000.0;      // 단위  km 에서 m 로 변환
+        dist = dist * 1.609344;
+        dist = dist * 1000.0;
 
         System.out.println(String.valueOf(dist) + "m");
 
         return dist;
     }
 
-    //degree->radian 변환
     public double DegreeToRadian(double degree){
         return degree * Math.PI / 180.0;
     }
 
-    //randian -> degree 변환
     public double RadianToDegree(double radian){
         return radian * 180d / Math.PI;
     }

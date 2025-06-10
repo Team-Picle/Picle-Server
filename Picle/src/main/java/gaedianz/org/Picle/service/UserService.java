@@ -18,7 +18,6 @@ public class UserService {
     @Transactional
     public UserResponseDto registerUserWithOAuth(UserRequestDto request) {
 
-        // 유저가 존재하면 유저 정보 리턴
         if (userRepository.existsByClientKey(request.getClientKey())) {
             User user = userRepository.findByClientKey(request.getClientKey());
             return UserResponseDto.of(user.getClientKey(), user.getId(), user.getNickname(), user.getProfileImage());

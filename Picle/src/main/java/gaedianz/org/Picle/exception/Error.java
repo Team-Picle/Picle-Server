@@ -9,18 +9,12 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum Error {
 
-    /**
-     * 400 BAD REQUEST
-     */
     REQUEST_VALIDATION_EXCEPTION(HttpStatus.BAD_REQUEST, "잘못된 요청입니다"),
     INVALID_MULTIPART_EXTENSION_EXCEPTION(HttpStatus.BAD_REQUEST, "확장자가 올바르지 않습니다"),
     IMAGE_VERIFICATION_FAILED_EXCEPTION(HttpStatus.BAD_REQUEST, "이미지 유사도 검증에 실패했습니다"),
     LOCATION_VERIFICATION_FAILED_EXCEPTION(HttpStatus.BAD_REQUEST, "위치 검증에 실패했습니다"),
     DATE_VERIFICATION_FAILED_EXCEPTION(HttpStatus.BAD_REQUEST, "날짜 검증에 실패했습니다"),
 
-    /**
-     * 404 NOT FOUND
-     */
     NOT_FOUND_USER_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다"),
     NOT_FOUND_TODO_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 투두입니다"),
     NOT_FOUND_ROUTINE_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 루틴입니다"),
@@ -28,15 +22,9 @@ public enum Error {
     NOT_FOUND_IMAGE_EXCEPTION(HttpStatus.NOT_FOUND, "존재하지 않는 이미지입니다"),
     NOT_FOUND_LIKE_EXCEPTION(HttpStatus.NOT_FOUND, "좋아요가 없습니다"),
 
-    /**
-     * 409 CONFLICT
-     */
     ALREADY_EXIST_USER_EXCEPTION(HttpStatus.CONFLICT, "이미 존재하는 유저입니다"),
     CONFLICT_ROUTINE_LIKE_EXCEPTION(HttpStatus.CONFLICT, "이미 좋아요를 눌렀습니다"),
 
-    /**
-     * 500 INTERNAL SERVER ERROR
-     */
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "알 수 없는 서버 에러가 발생했습니다"),
     ;
 

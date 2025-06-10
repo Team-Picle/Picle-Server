@@ -2,9 +2,7 @@ package gaedianz.org.Picle.service;
 
 import gaedianz.org.Picle.controller.dto.request.TodoRequestDto;
 import gaedianz.org.Picle.controller.dto.request.UpdateTodoRequestDto;
-import gaedianz.org.Picle.controller.dto.response.FeedResponseDto;
 import gaedianz.org.Picle.controller.dto.response.TodoResponseDto;
-import gaedianz.org.Picle.domain.Routine;
 import gaedianz.org.Picle.domain.Todo;
 import gaedianz.org.Picle.domain.User;
 import gaedianz.org.Picle.exception.Error;

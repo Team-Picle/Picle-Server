@@ -16,10 +16,6 @@ import java.util.Objects;
 @RestControllerAdvice
 public class ControllerExceptionAdvice {
 
-    /**
-     * 400 BAD_REQUEST
-     */
-
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ApiResponse handleMethodArgumentNotValidException(final MethodArgumentNotValidException e) {
@@ -27,18 +23,6 @@ public class ControllerExceptionAdvice {
         return ApiResponse.error(Error.REQUEST_VALIDATION_EXCEPTION, String.format("%s. (%s)", fieldError.getDefaultMessage(), fieldError.getField()));
     }
 
-    /**
-     * 500 Internal Server
-     */
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    @ExceptionHandler(Exception.class)
-//    protected ApiResponse<Object> handleException(final Exception e) {
-//        return ApiResponse.error(Error.INTERNAL_SERVER_ERROR);
-//    }
-
-    /**
-     * Sopt custom error
-     */
     @ExceptionHandler(PicleException.class)
     protected ResponseEntity<ApiResponse> handleSoptException(PicleException e) {
         return ResponseEntity.status(e.getHttpStatus())

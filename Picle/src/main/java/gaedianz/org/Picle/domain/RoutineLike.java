@@ -22,9 +22,6 @@ public class RoutineLike {
     @Column(name = "routine_like_id")
     private Long id;
 
-    /**
-     * 좋아요를 누른 유저
-     */
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(
             name = "user_id",
@@ -33,9 +30,6 @@ public class RoutineLike {
     )
     private User user;
 
-    /**
-     * 좋아요 대상 루틴
-     */
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(
             name = "routine_id",

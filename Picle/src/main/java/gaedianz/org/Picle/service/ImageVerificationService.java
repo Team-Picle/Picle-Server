@@ -15,19 +15,15 @@ public class ImageVerificationService {
         try {
             String flaskServerUrl = "http://127.0.0.1:5000/verify-image-similarity";
 
-            // HTTP 요청 바디 설정
             HttpHeaders headers = new HttpHeaders();
             headers.set("Content-Type", "application/json");
 
-            // JSON으로 요청 데이터 생성
             String requestBody = "{\"image_url1\": \"" + imageUrl1 + "\", \"image_url2\": \"" + imageUrl2 + "\"}";
 
-            // HTTP 요청 보내기
             RestTemplate restTemplate = new RestTemplate();
             HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
             ResponseEntity<String> responseEntity = restTemplate.exchange(flaskServerUrl, HttpMethod.POST, requestEntity, String.class);
 
-            // 응답에서 JSON 파싱하여 similarity_score 값 추출
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(responseEntity.getBody());
             double similarityScore = root.get("similarity_score").asDouble();

@@ -11,8 +11,4 @@ public class ExpiredAccessTokenException extends RuntimeException {
         super(message);
         this.error = error;
     }
-
-    public int getHttpStatus() {
-        return error.getHttpStatusCode();
-    }
 }
